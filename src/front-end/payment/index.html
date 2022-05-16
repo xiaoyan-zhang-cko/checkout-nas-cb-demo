@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment Demo</title>
+    <link href="./style.css" rel="stylesheet"/>
+    <link href="./images/favicon.ico" rel="icon" type="image/ico"/>
+</head>
+
+<body class="light">
+
+<!-- Loader -->
+<div class="loader"></div>
+
+<!-- Theme switcher -->
+<div class="switch">
+    <input id="theme-switch" type="checkbox"/>
+    <label class="switch" for="theme-switch"></label>
+</div>
+
+<div id="payment-form" style="display: none;">
+
+    <div id="inputs">
+
+        <!-- Cardholder Name -->
+        <div class="input-wrapper name">
+            <label for="name-input" id="name-label">Cardholder Name</label>
+            <input autocomplete="cc-name" id="cardholder" name="cc-name" placeholder="John Smith"
+                   type="text">
+        </div>
+
+        <!-- Card Number -->
+        <div class="input-wrapper card-number">
+            <label id="card-label">Card Number</label>
+            <div class="card-and-scheme">
+                <div class="card-number-frame"></div>
+                <img id="card-scheme"/>
+            </div>
+            <div class="hint card-hint hide"><span class="line"></span>
+                4242 4242 4242 4242
+            </div>
+        </div>
+
+        <div class="date-and-cvv">
+
+            <!-- Expiry Date -->
+            <div class="input-wrapper expiry-date">
+                <label id="date-label">Expiry Date</label>
+                <div class="expiry-date-frame"></div>
+                <div class="hint expiry-date-hint hide">
+                    Future Date<span class="line"></span>
+                </div>
+            </div>
+
+            <!-- Cvv -->
+            <div class="input-wrapper cvv">
+                <label id="cvv-label">CVV</label>
+                <div class="cvv-frame"></div>
+                <div class="hint cvv-hint hide"><span class="line"></span>100</div>
+            </div>
+
+        </div>
+        <!-- To add CB Card Brand Choice iFrame-->
+        <div class="scheme-choice-frame"></div>
+    </div>
+
+    <div class="button-area">
+        <button class="pay" disabled>Pay Now</button>
+        <div class="loader pay-loader hide"></div>
+        <div id="outcome"></div>
+        <div class="error hide">
+            <span class="line"></span>
+            <div class="hint" id="error-hint"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Checkout.com CDN -->
+<script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
+
+<!-- Our scripts -->
+<script src="./payment/script.js"></script>
+<script src="./payment/frames.js"></script>
+
+</body>
+
+</html>
