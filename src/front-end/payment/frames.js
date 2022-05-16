@@ -251,12 +251,7 @@ Frames.addEventHandler(Frames.Events.PAYMENT_METHOD_CHANGED, (event) => {
     scheme.style.setProperty("display", "none");
   } else {
     var name = pm.toLowerCase();
-    // FIXME remove the online image, download the image and put it to under card-icons folder
-    if (name === "cartes bancaires") {
-      scheme.setAttribute("src", "https://js.checkout.com/framesv2/img/cartes bancaires.svg");
-    } else {
-      scheme.setAttribute("src", "images/card-icons/" + name + ".svg");
-    }
+    scheme.setAttribute("src", "images/card-icons/" + name + ".svg");
     scheme.setAttribute("alt", pm || "payment method");
     scheme.style.setProperty("display", "block");
   }
