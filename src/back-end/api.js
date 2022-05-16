@@ -1,14 +1,14 @@
 const route = require("express").Router();
 const { Checkout } = require("checkout-sdk-node");
-// 1.0.36 is not ready for jwt access token yet
-/*let cko = new Checkout('GcQ0taurXlozWlSHKXCO4e33KSm_9Ye3O9IhXg7Uib7WAn2XDMEl2m0dLeKcuiPeDRW-ik4Y3Y5BZSk9LA0dig', {
+// From node js sdk version 2.0.0, we can use access token
+let cko = new Checkout('GcQ0taurXlozWlSHKXCO4e33KSm_9Ye3O9IhXg7Uib7WAn2XDMEl2m0dLeKcuiPeDRW-ik4Y3Y5BZSk9LA0dig', {
   client: 'ack_ioyasynbmpwezoizbtstajdxka', // ClientId
   scope: ['gateway'], // array of scopes
   environment: 'sandbox', // or "production"
-});*/
-let cko = new Checkout('sk_sbox_2hy6ttp44ssbzk532k6nlv7ypui', {
-  pk: 'pk_sbox_xe2tfc7ob6nu77khdthzlp6e5qo'
 });
+/*let cko = new Checkout('sk_sbox_2hy6ttp44ssbzk532k6nlv7ypui', {
+  pk: 'pk_sbox_xe2tfc7ob6nu77khdthzlp6e5qo'
+});*/
 
 route.post("/payWith3ds", async (req, res) => {
   try {
@@ -42,8 +42,6 @@ route.post("/payWithCB", async (req, res) => {
   const payment = await cko.payments.request({
     source: {
       token: req.body.token,
-      // Only for Session Authentication
-      // scheme: req.body.preferredScheme
     },
     processing: {
       "preferred_scheme": req.body.preferredScheme
