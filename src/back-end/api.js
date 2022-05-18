@@ -47,7 +47,7 @@ route.post("/payWithCB", async (req, res) => {
       "preferred_scheme": req.body.preferredScheme
     },
     currency: "EUR",
-    amount: 400, // pence
+    amount: 500, // pence
     reference: "TEST-ORDER",
     // To active 3DS
     "3ds": {

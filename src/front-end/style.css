@@ -100,7 +100,8 @@ iframe {
   width: var(--payment-form-width);
   position: absolute;
   left: 50%;
-  top: 46.5%;
+  top: 40%;
+  bottom: 60%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }

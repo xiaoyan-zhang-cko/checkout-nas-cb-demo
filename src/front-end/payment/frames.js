@@ -264,7 +264,6 @@ Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, (event) => {
   // For CB we have to pass the preferred_scheme to request payment
   const preferredScheme = event.preferred_scheme;
   console.log("Preferred scheme " + preferredScheme);
-  console.log(preferredScheme);
   if (preferredScheme) {
     payWithCB(token, preferredScheme);
   } else {

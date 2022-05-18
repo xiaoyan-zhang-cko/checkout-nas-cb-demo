@@ -47,11 +47,13 @@ const showOutcome = () => {
         outcome.style.backgroundColor = "var(--green)";
         outcome.classList.add("checkmark", "draw");
 
+        // FIXME: For now the scheme name from tokenized event is without _ separator, but the scheme name has _ separator from payment result. Name Synchronization has been asked.
+        const preferredScheme = data.processing.preferred_scheme.replace(/_/g, " ").toLowerCase();
         schemeIcon.setAttribute(
           "src",
-          "images/card-icons/" + data.source.scheme.toLowerCase() + ".svg"
+          "images/card-icons/" + preferredScheme + ".svg"
         );
-        schemeIcon.setAttribute("alt", data.source.scheme);
+        schemeIcon.setAttribute("alt", preferredScheme);
         schemeIcon.style.setProperty("display", "block");
 
         lastFour.innerHTML = "****" + data.source.last4;
