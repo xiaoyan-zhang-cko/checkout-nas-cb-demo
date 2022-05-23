@@ -1,7 +1,7 @@
 # checkout-nas-cb-demo
 
-# update latest checkout-sdk-node version
+## update latest checkout-sdk-node version
 npm install checkout-sdk-node@latest
 
-# run project
+## run project
 npm start

@@ -22,101 +22,101 @@ const errorMessage = document.getElementById("error-hint");
 var theme = "";
 
 const crossVisible =
-  '<svg class="cross" viewBox="0 0 50 50"><path class="cross draw" fill="none" d="M16 16 34 34 M34 16 16 34"></path></svg>';
+    '<svg class="cross" viewBox="0 0 50 50"><path class="cross draw" fill="none" d="M16 16 34 34 M34 16 16 34"></path></svg>';
 const crossHidden =
-  '<svg class="cross hide" viewBox="0 0 50 50"><path class="cross draw" fill="none" d="M16 16 34 34 M34 16 16 34"></path></svg>';
+    '<svg class="cross hide" viewBox="0 0 50 50"><path class="cross draw" fill="none" d="M16 16 34 34 M34 16 16 34"></path></svg>';
 
 const handleResponse = data => {
-  payLoader.classList.add("hide");
-  // Payment 3DS redirection URL returned
-  if (data.redirectionUrl) {
-    window.location.href = data.redirectionUrl;
-  }
-  // Timeout/connection error
-  else {
-    payButton.style.backgroundColor = "var(--button-background-error)";
-    showCross();
-    setTimeout(() => {
-      hideCross();
-      payButton.innerHTML = "&#10227; Retry";
-      inputs.style.pointerEvents = "auto";
-      payButton.style.pointerEvents = "auto";
-      error.classList.remove("hide");
-    }, 1200);
-  }
+    payLoader.classList.add("hide");
+    // Payment 3DS redirection URL returned
+    if (data.redirectionUrl) {
+        window.location.href = data.redirectionUrl;
+    }
+    // Timeout/connection error
+    else {
+        payButton.style.backgroundColor = "var(--button-background-error)";
+        showCross();
+        setTimeout(() => {
+            hideCross();
+            payButton.innerHTML = "&#10227; Retry";
+            inputs.style.pointerEvents = "auto";
+            payButton.style.pointerEvents = "auto";
+            error.classList.remove("hide");
+        }, 1200);
+    }
 };
 
 const cleanState = () => {
-  payButton.innerHTML = "Pay Now";
-  payButton.style.backgroundColor = "var(--button-background)";
-  pageLoader.style.display = "";
-  form.style.display = "none";
-  initializeFrames();
-  nameInput.value = "";
-  nameLabel.classList.remove("up");
-  cardLabel.classList.remove("up");
-  dateLabel.classList.remove("up");
-  cvvLabel.classList.remove("up");
-  scheme.removeAttribute("src");
-  scheme.removeAttribute("alt");
-  state = {
-    "card-number": {
-      isValid: false,
-      isEmpty: true,
-      isFocused: false
-    },
-    "expiry-date": {
-      isValid: false,
-      isEmpty: true,
-      isFocused: false
-    },
-    cvv: {
-      isValid: false,
-      isEmpty: true,
-      isFocused: false
-    }
-  };
-  hideCheckmark();
-  hideCross();
-  inputs.style.pointerEvents = "auto";
-  nameInput.classList.remove("success");
-  cardInput.classList.remove("success");
-  dateInput.classList.remove("success");
-  cvvInput.classList.remove("success");
-  error.classList.add("hide");
-  errorMessage.innerHTML = "Payment declined";
+    payButton.innerHTML = "Pay Now";
+    payButton.style.backgroundColor = "var(--button-background)";
+    pageLoader.style.display = "";
+    form.style.display = "none";
+    initializeFrames();
+    nameInput.value = "";
+    nameLabel.classList.remove("up");
+    cardLabel.classList.remove("up");
+    dateLabel.classList.remove("up");
+    cvvLabel.classList.remove("up");
+    scheme.removeAttribute("src");
+    scheme.removeAttribute("alt");
+    state = {
+        "card-number": {
+            isValid: false,
+            isEmpty: true,
+            isFocused: false
+        },
+        "expiry-date": {
+            isValid: false,
+            isEmpty: true,
+            isFocused: false
+        },
+        cvv: {
+            isValid: false,
+            isEmpty: true,
+            isFocused: false
+        }
+    };
+    hideCheckmark();
+    hideCross();
+    inputs.style.pointerEvents = "auto";
+    nameInput.classList.remove("success");
+    cardInput.classList.remove("success");
+    dateInput.classList.remove("success");
+    cvvInput.classList.remove("success");
+    error.classList.add("hide");
+    errorMessage.innerHTML = "Payment declined";
 };
 
 // Utility function to send HTTP calls to our back-end API
-const http = ({ method, route, body }, callback) => {
-  let requestData = {
-    method,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(body)
-  };
+const http = ({method, route, body}, callback) => {
+    let requestData = {
+        method,
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    };
 
-  if (method.toLocaleLowerCase() === "get") {
-    delete requestData.body;
-  }
+    if (method.toLocaleLowerCase() === "get") {
+        delete requestData.body;
+    }
 
-  // Timeout after 10 seconds
-  timeout(10000, fetch(`${window.location.origin}${route}`, requestData))
-    .then(res => res.json())
-    .then(data => callback(data))
-    .catch(er => (errorMessage.innerHTML = er));
+    // Timeout after 10 seconds
+    timeout(10000, fetch(`${window.location.origin}${route}`, requestData))
+        .then(res => res.json())
+        .then(data => callback(data))
+        .catch(er => (errorMessage.innerHTML = er));
 };
 
 // For connection timeout error handling
 const timeout = (ms, promise) => {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function() {
-      reject(new Error("Connection timeout"));
-    }, ms);
-    promise.then(resolve, reject);
-  });
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            reject(new Error("Connection timeout"));
+        }, ms);
+        promise.then(resolve, reject);
+    });
 };
 
 /* Themes */
@@ -128,57 +128,57 @@ theme = getComputedStyle(document.documentElement).getPropertyValue("content");
 theme = localStorage.getItem("theme");
 
 if (theme) {
-  document.body.classList.add(theme);
-  if (theme == "dark") {
-    switcher.checked = true;
-  }
+    document.body.classList.add(theme);
+    if (theme == "dark") {
+        switcher.checked = true;
+    }
 }
 
 // Dark mode switch
 document.getElementById("theme-switch").addEventListener("change", event => {
-  themeSwitch(event);
+    themeSwitch(event);
 });
 
 const themeSwitch = event => {
-  if (event.target.checked) {
-    // Dark mode
-    document.body.className = "";
-    document.body.classList.add("dark");
-    setTheme("dark");
-    getTheme();
-    cleanState();
-  } else {
-    // Light mode
-    document.body.className = "";
-    document.body.classList.add("light");
-    setTheme("light");
-    getTheme();
-    cleanState();
-  }
+    if (event.target.checked) {
+        // Dark mode
+        document.body.className = "";
+        document.body.classList.add("dark");
+        setTheme("dark");
+        getTheme();
+        cleanState();
+    } else {
+        // Light mode
+        document.body.className = "";
+        document.body.classList.add("light");
+        setTheme("light");
+        getTheme();
+        cleanState();
+    }
 };
 
 function getTheme() {
-  theme = localStorage.getItem("theme");
+    theme = localStorage.getItem("theme");
 }
 
 function setTheme(mode) {
-  localStorage.setItem("theme", mode);
+    localStorage.setItem("theme", mode);
 }
 
 /* Outcome animations */
 
 const showCheckmark = () => {
-  outcome.classList.add("checkmark", "draw");
+    outcome.classList.add("checkmark", "draw");
 };
 const hideCheckmark = () => {
-  outcome.classList.remove("checkmark", "draw");
+    outcome.classList.remove("checkmark", "draw");
 };
 
 const showCross = () => {
-  outcome.class = "cross";
-  outcome.innerHTML = crossVisible;
+    outcome.class = "cross";
+    outcome.innerHTML = crossVisible;
 };
 const hideCross = () => {
-  outcome.classList.remove("cross");
-  outcome.innerHTML = crossHidden;
+    outcome.classList.remove("cross");
+    outcome.innerHTML = crossHidden;
 };
